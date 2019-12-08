@@ -20,9 +20,9 @@ mod tests {
 }
 
 
-extern crate aljabar as al;
+extern crate num_traits as num;
 
-use al::{One, Zero};
+use num::identities::{One, Zero};
 use std::fmt;
 use std::fmt::{Debug, Display};
 use std::ops::{Add, Mul, Neg};
@@ -58,7 +58,7 @@ impl<T, V> Display for Expr<T, V> where
 }
 
 impl<T, V> One for Expr<T, V> where
-    T: One,
+    T: Copy + Mul<T, Output = T> + One + PartialEq + Zero,
 {
     fn one() -> Self {
         Expr::Const(T::one())
@@ -72,7 +72,7 @@ impl<T, V> One for Expr<T, V> where
 }
 
 impl<T, V> Zero for Expr<T, V> where
-    T: Zero,
+    T: Add<T, Output = T> + Copy + Zero,
 {
     fn zero() -> Self {
         Expr::Const(T::zero())
@@ -132,7 +132,7 @@ impl<T, V> Add<Rc<Self>> for Expr<T, V> where
 }
 
 impl<T, V> Mul for Expr<T, V> where
-    T: Copy + Mul<T, Output = T> + One + Zero,
+    T: Copy + Mul<T, Output = T> + One + PartialEq + Zero,
 {
     type Output = Self;
 
@@ -149,7 +149,7 @@ impl<T, V> Mul for Expr<T, V> where
 }
 
 impl<T, V> Mul<Rc<Self>> for Expr<T, V> where
-    T: Copy + Mul<T, Output = T> + One + Zero,
+    T: Copy + Mul<T, Output = T> + One + PartialEq + Zero,
 {
     type Output = Self;
 

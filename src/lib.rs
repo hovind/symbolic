@@ -317,3 +317,12 @@ where
         }
     }
 }
+
+impl<T, V> num::cast::NumCast for Expr<T, V>
+where
+    T: num::cast::NumCast,
+{
+    fn from<S: num::cast::ToPrimitive>(n: S) -> Option<Self> {
+        T::from(n).map(Expr::Const)
+    }
+}

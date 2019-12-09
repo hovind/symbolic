@@ -214,3 +214,106 @@ impl<T, V> Expr<T, V> where
         }
     }
 }
+
+impl<T, V> num::cast::ToPrimitive for Expr<T, V>
+where
+    T: num::cast::ToPrimitive,
+{
+    fn to_i64(&self) -> Option<i64> {
+        match self {
+            Expr::Const(a) => a.to_i64(),
+            _ => None,
+        }
+    }
+
+    fn to_u64(&self) -> Option<u64> {
+        match self {
+            Expr::Const(a) => a.to_u64(),
+            _ => None,
+        }
+    }
+
+    fn to_isize(&self) -> Option<isize> {
+        match self {
+            Expr::Const(a) => a.to_isize(),
+            _ => None,
+        }
+    }
+
+    fn to_i8(&self) -> Option<i8> {
+        match self {
+            Expr::Const(a) => a.to_i8(),
+            _ => None,
+        }
+    }
+
+    fn to_i16(&self) -> Option<i16> {
+        match self {
+            Expr::Const(a) => a.to_i16(),
+            _ => None,
+        }
+    }
+
+    fn to_i32(&self) -> Option<i32> {
+        match self {
+            Expr::Const(a) => a.to_i32(),
+            _ => None,
+        }
+    }
+
+    fn to_i128(&self) -> Option<i128> {
+        match self {
+            Expr::Const(a) => a.to_i128(),
+            _ => None,
+        }
+    }
+
+    fn to_usize(&self) -> Option<usize> {
+        match self {
+            Expr::Const(a) => a.to_usize(),
+            _ => None,
+        }
+    }
+
+    fn to_u8(&self) -> Option<u8> {
+        match self {
+            Expr::Const(a) => a.to_u8(),
+            _ => None,
+        }
+    }
+
+    fn to_u16(&self) -> Option<u16> {
+        match self {
+            Expr::Const(a) => a.to_u16(),
+            _ => None,
+        }
+    }
+
+    fn to_u32(&self) -> Option<u32> {
+        match self {
+            Expr::Const(a) => a.to_u32(),
+            _ => None,
+        }
+    }
+
+    fn to_u128(&self) -> Option<u128> {
+        match self {
+            Expr::Const(a) => a.to_u128(),
+            _ => None,
+        }
+    }
+
+    fn to_f32(&self) -> Option<f32> {
+        match self {
+            Expr::Const(a) => a.to_f32(),
+            _ => None,
+        }
+    }
+
+    fn to_f64(&self) -> Option<f64> {
+        match self {
+            Expr::Const(a) => a.to_f64(),
+            _ => None,
+        }
+    }
+}

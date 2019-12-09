@@ -23,6 +23,8 @@ mod tests {
 extern crate num_traits as num;
 
 use num::identities::{One, Zero};
+use num::float::Float;
+use std::cmp::Ordering;
 use std::fmt;
 use std::fmt::{Debug, Display};
 use std::ops::{Add, Mul, Neg};
@@ -38,6 +40,19 @@ where
     Neg(Rc<Expr<T, V>>),
     Sum(Rc<Expr<T, V>>, Rc<Expr<T, V>>),
     Prod(Rc<Expr<T, V>>, Rc<Expr<T, V>>),
+}
+
+impl<T, V> PartialOrd for Expr<T, V> where
+    T: PartialOrd,
+    V: PartialEq,
+{
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        match (self, other) {
+            (Expr::Const(a), Expr::Const(b)) => a.partial_cmp(b),
+            (a, Expr::Id(b)) | (Expr::Id(b), a) => a.partial_cmp(b),
+            _ => None,
+        }
+    }
 }
 
 impl<T, V> Display for Expr<T, V> where

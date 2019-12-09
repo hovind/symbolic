@@ -326,3 +326,13 @@ where
         T::from(n).map(Expr::Const)
     }
 }
+
+impl<T, V, E> num::Num for Expr<T, V> where
+    T: num::Num<FromStrRadixErr = E>
+{
+    type FromStrRadixErr = E;
+
+    fn from_str_radix(str: &str, radix: u32) -> Result<Self, Self::FromStrRadixErr> {
+        T::from_str_radix(str, radix).map(Expr::Const)
+    }
+}
